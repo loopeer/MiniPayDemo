@@ -1,0 +1,80 @@
+def CONFIG = { k -> "\"${k}\"" }
+ext.CONFIG = CONFIG
+ext.deps = [:]
+
+ext.configs = [:]
+
+def configs = [:]
+ext.configs = configs
+
+def versions = [:]
+versions.junit = '4.12'
+versions.espresso = '3.0.2'
+versions.support = '28.0.0'
+versions.test = '1.0.2'
+versions.constraint_layout = '1.1.3'
+versions.android_gradle_plugin = '3.4.2'
+versions.retrofit = '2.7.1'
+versions.rxjava2 = '2.2.5'
+versions.rxandroid = '2.1.0'
+versions.arch = '1.1.1'
+versions.supportx = '1.0.0'
+versions.multidex = '2.0.0'
+versions.flexbox = '1.0.0'
+versions.materialdaterangepicker = '2.0'
+
+ext.kotlin_version = versions.kotlin
+
+def build_versions = [:]
+build_versions.min_sdk = 17
+build_versions.target_sdk = 28
+build_versions.build_tools = "28.0.2"
+ext.build_versions = build_versions
+
+def deps = [:]
+
+def support = [:]
+support.appcompat = "com.android.support:appcompat-v7:$versions.support"
+support.cardview = "com.android.support:cardview-v7:$versions.support"
+support.recyclerview = "com.android.support:recyclerview-v7:$versions.support"
+support.gridlayout = "com.android.support:gridlayout-v7:$versions.support"
+deps.support = support
+
+def test = [:]
+test.rules = "com.android.support.test:rules:$versions.test"
+test.runner = "com.android.support.test:runner:$versions.test"
+deps.test = test
+
+def espresso = [:]
+espresso.core = "com.android.support.test.espresso:espresso-core:$versions.espresso"
+espresso.contrib = "com.android.support.test.espresso:espresso-contrib:$versions.espresso"
+espresso.intents = "com.android.support.test.espresso:espresso-intents:$versions.espresso"
+deps.espresso = espresso
+
+def retrofit = [:]
+retrofit.retrofit = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.converter_gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.adapter_rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+deps.retrofit = retrofit
+
+def arch = [:]
+arch.extensions = "android.arch.lifecycle:extensions:$versions.arch"
+arch.common_java8 = "android.arch.lifecycle:common-java8:$versions.arch"
+deps.arch = arch
+
+deps.constraint_layout = "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
+deps.junit = "junit:junit:$versions.junit"
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+deps.rxandroid = "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
+deps.multidex = "androidx.multidex:multidex:$versions.multidex"
+deps.flexbox = "com.google.android:flexbox:$versions.flexbox"
+deps.materialdaterangepicker = "com.borax12.materialdaterangepicker:library:$versions.materialdaterangepicker"
+
+ext.deps = deps
+
+def addRepos(RepositoryHandler handler) {
+    handler.jcenter()
+    handler.google()
+}
+ext.addRepos = this.&addRepos

@@ -1,0 +1,79 @@
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file:///Users/todou/.m2/repository")
+        }
+    }
+}
+
+version = "0.0.2"
+group = "com.loopeer.lib"
+archivesBaseName = "minipay"
+description = "Loopeer minipay lib"
+
+def siteUrl = 'https://bitbucket.org/loopeer/minipay4android'
+def gitUrl = 'git@bitbucket.org:loopeer/minipay4android.git'
+def license = 'Apache-2.0'
+
+publishing {
+    publications {
+        Production(MavenPublication) {
+            artifact("$buildDir/outputs/aar/$archivesBaseName-release.aar")
+            groupId
+            artifactId archivesBaseName
+            version this.version
+
+            pom {
+                name = archivesBaseName
+                description = this.description
+                url = siteUrl
+                licenses {
+                    name = 'GNU LESSER GENERAL PUBLIC LICENSE 3.0'
+                    url = 'http://www.gnu.org/copyleft/lesser.html'
+                }
+                developers {
+                    developer {
+                        id = 'loopeer'
+                        name = 'loopeer'
+                        email = 'loopeerteam@gmail.com'
+                    }
+                }
+                scm {
+                    connection = "scm:git:$siteUrl"
+                    developerConnection = "scm:git:$siteUrl"
+                    url = siteUrl
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+artifacts {
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    publications = ['Production']
+    override = true
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = archivesBaseName
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = [license]
+        publish = true
+    }
+}

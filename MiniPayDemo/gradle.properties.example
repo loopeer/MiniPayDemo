@@ -1,0 +1,4 @@
+storeFile=../keystore/masterplusandroid-release.keystore
+storePassword=masterplus-release
+keyAlias=masterplusandroid-release
+keyPassword=masterplus-release

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TODO demo color -->
+    <color name="colorPrimary">#08BCFF</color>
+    <color name="colorPrimaryDark">#08BCFF</color>
+    <color name="colorAccent">#08BCFF</color>
+
+    <color name="windowBackground">#FFFFFF</color>
+
+    <color name="textColorPrimary">#212121</color>
+    <color name="textColorSecondary">#757575</color>
+    <color name="textColorTertiary">#BDBDBD</color>
+</resources>

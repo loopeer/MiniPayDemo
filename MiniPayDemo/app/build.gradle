@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+apply plugin: 'project-report'
+
+def majorVersion = MAJOR_VERSION.toInteger()
+def minorVersion = MINOR_VERSION.toInteger()
+def grayVersion = GRAY_VERSION.toInteger()
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    defaultConfig {
+        applicationId "com.loopeer.android.apps.masterplus4android"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode majorVersion * 10000 + minorVersion * 100 + grayVersion
+        versionName "$majorVersion.$minorVersion.$grayVersion"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+
+        buildConfigField "int", "BUILD_NUMBER", BUILD_NUMBER
+    }
+
+    signingConfigs {
+        demo {
+            storeFile file('../keystore/masterplusandroid-release.keystore')
+            storePassword 'masterplus-release'
+            keyAlias 'masterplusandroid-release'
+            keyPassword 'masterplus-release'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.demo
+        }
+
+        release {
+            signingConfig signingConfigs.demo
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+
+    packagingOptions{
+        doNotStrip '*/mips/*.so'
+        doNotStrip '*/mips64/*.so'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation deps.constraint_layout
+    implementation deps.support.appcompat
+
+    implementation deps.retrofit.retrofit
+    implementation deps.retrofit.converter_gson
+    implementation deps.retrofit.adapter_rxjava2
+
+    implementation deps.rxjava2
+    implementation deps.rxandroid
+
+    implementation deps.multidex
+
+    testImplementation deps.junit
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.rules
+    androidTestImplementation deps.espresso.core
+
+    implementation project(':minipay')
+//    implementation 'com.loopeer.lib:minipay:0.0.1'
+}
