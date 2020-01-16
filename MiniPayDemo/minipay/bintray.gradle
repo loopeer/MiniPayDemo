@@ -15,8 +15,8 @@ group = "com.loopeer.lib"
 archivesBaseName = "minipay"
 description = "Loopeer minipay lib"
 
-def siteUrl = 'https://bitbucket.org/loopeer/minipay4android'
-def gitUrl = 'git@bitbucket.org:loopeer/minipay4android.git'
+def siteUrl = 'https://github.com/loopeer/MiniPayDemo'
+def gitUrl = 'https://github.com/loopeer/MiniPayDemo.git'
 def license = 'Apache-2.0'
 
 publishing {
